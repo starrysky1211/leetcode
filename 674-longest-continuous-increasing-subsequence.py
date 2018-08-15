@@ -17,3 +17,4 @@ class Solution(object):
                 cursor = 1
             re = max(re, cursor)
         return re
+
