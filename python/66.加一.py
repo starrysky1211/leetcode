@@ -1,14 +1,18 @@
 '''
 Author: Zander
 Description: Edit Here
-Date: 2021-05-06 11:56:51
+Date: 2021-08-05 11:38:06
 LastEditors: Zander
-LastEditTime: 2021-08-05 12:01:55
-FilePath: /python/try.py
+LastEditTime: 2021-08-05 12:02:03
+FilePath: /python/66.加一.py
 '''
-# -*- coding:utf-8 -*-
-from typing import List
+#
+# @lc app=leetcode.cn id=66 lang=python3
+#
+# [66] 加一
+#
 
+# @lc code=start
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
         taker = 0
@@ -22,8 +26,6 @@ class Solution:
         if taker:
             digits = [1] + digits
         return digits
+            
+# @lc code=end
 
-
-s = Solution()
-r = s.plusOne([9,9])
-print(r)
