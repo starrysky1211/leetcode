@@ -3,7 +3,7 @@ Author: Zander
 Description: Edit Here
 Date: 2021-05-06 11:56:51
 LastEditors: Zander
-LastEditTime: 2021-08-06 12:13:00
+LastEditTime: 2021-08-10 10:58:28
 FilePath: /python/try.py
 '''
 # -*- coding:utf-8 -*-
@@ -59,10 +59,28 @@ class Solution:
                 if head.right:
                     stack.append(head.right)
         return res
+    def isPalindrome(self, s: str) -> bool:
+        # 预处理，变成无空格和标点的小写字符串
+        ls = ""
+        for c in s:
+            if str.isalnum(c):
+                ls += c.lower()
+        # 判断回文
+        mid, tag = divmod(len(ls), 2)
+        if tag:
+            # 奇数，中间值index是mid为对称轴
+            for i in range(mid):
+                if ls[i] != ls[-i-1]:
+                    return False
+        else:
+            # 偶数，中间值index是mid-1和mid必须相等
+            for i in range(mid):
+                if ls[i] != ls[-i-1]:
+                    return False
+        return True
 
 
 s = Solution()
-root = TreeNode(val=1)
-root.right = TreeNode(val=2, left=TreeNode(val=3))
-res = s.inorderTraversal(root)
+data = "A man, a plan, a canal: Panama"
+res = s.isPalindrome(data)
 print(res)
