@@ -3,7 +3,7 @@ Author: Zander
 Description: Edit Here
 Date: 2021-05-06 11:56:51
 LastEditors: Zander
-LastEditTime: 2021-08-10 10:58:28
+LastEditTime: 2021-08-11 11:59:35
 FilePath: /python/try.py
 '''
 # -*- coding:utf-8 -*-
@@ -78,9 +78,21 @@ class Solution:
                 if ls[i] != ls[-i-1]:
                     return False
         return True
-
+    def isHappy(self, n: int) -> bool:
+        # 探寻规律：4会回到4，2会回到4，3会回到4，5会回到4，6会回到4，7会回到1，8会回到4，9会回到4
+        def getSum(num):
+            res = 0
+            while num > 0:
+                num, head = divmod(num, 10)
+                res += head**2
+            return res
+        while n >= 10:
+            n = getSum(n)
+        if n in [1, 7]:
+            return True
+        return False
 
 s = Solution()
-data = "A man, a plan, a canal: Panama"
-res = s.isPalindrome(data)
+data = 19
+res = s.isHappy(data)
 print(res)
