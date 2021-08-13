@@ -1,0 +1,28 @@
+'''
+Author: Zander
+Description: Edit Here
+Date: 2021-08-12 11:30:32
+LastEditors: Zander
+LastEditTime: 2021-08-12 11:37:46
+FilePath: /python/226.翻转二叉树.py
+'''
+#
+# @lc app=leetcode.cn id=226 lang=python3
+#
+# [226] 翻转二叉树
+#
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root: return
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+        return root
+# @lc code=end
+
