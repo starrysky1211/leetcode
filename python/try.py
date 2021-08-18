@@ -3,7 +3,7 @@ Author: Zander
 Description: Edit Here
 Date: 2021-05-06 11:56:51
 LastEditors: Zander
-LastEditTime: 2021-08-11 11:59:35
+LastEditTime: 2021-08-18 14:03:12
 FilePath: /python/try.py
 '''
 # -*- coding:utf-8 -*-
@@ -91,8 +91,43 @@ class Solution:
         if n in [1, 7]:
             return True
         return False
-
+    def readBinaryWatch(self, turnedOn: int) -> List[str]:
+        # 遍历所有的排列组合
+        origin = [0]*(10-turnedOn) + [1]*turnedOn
+        poss = self.iterator(origin)
+        res = []
+        for i in poss:
+            h = poss[:4]
+            if self.list2binary(h) <= 12:
+                res.append(self.binary260(self.list2binary(poss)))
+        return res
+    
+    def iterator(self, nums:List[int]):
+        def backtrack(first = 0):
+            if first == n:
+                res.append(nums[:])
+            for i in range(first, n):
+                nums[first], nums[i] = nums[i], nums[first]
+                backtrack(first+1)
+                nums[first], nums[i] = nums[i], nums[first]
+        n = len(nums)
+        res = []
+        backtrack()
+        return res
+        
+    def binary260(self, num: int) -> str:
+        # 二进制换算60进制
+        h, t = divmod(num, 60)
+        ts = str(t) if t>=10 else "0"+str(t)
+        return str(h) + ":" + ts
+    def list2binary(self, bl: List[int]) -> int:
+        # binary to 10进制整数
+        res = 0
+        for i in range(len(bl)):
+            if bl[-1-i]:
+                res += 2**i
+        return res
 s = Solution()
-data = 19
-res = s.isHappy(data)
+data = 1
+res = s.readBinaryWatch(data)
 print(res)
