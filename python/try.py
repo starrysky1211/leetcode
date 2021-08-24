@@ -3,7 +3,7 @@ Author: Zander
 Description: Edit Here
 Date: 2021-05-06 11:56:51
 LastEditors: Zander
-LastEditTime: 2021-08-18 14:03:12
+LastEditTime: 2021-08-20 15:41:12
 FilePath: /python/try.py
 '''
 # -*- coding:utf-8 -*-
@@ -100,8 +100,7 @@ class Solution:
             h = poss[:4]
             if self.list2binary(h) <= 12:
                 res.append(self.binary260(self.list2binary(poss)))
-        return res
-    
+        return res 
     def iterator(self, nums:List[int]):
         def backtrack(first = 0):
             if first == n:
@@ -113,8 +112,7 @@ class Solution:
         n = len(nums)
         res = []
         backtrack()
-        return res
-        
+        return res   
     def binary260(self, num: int) -> str:
         # 二进制换算60进制
         h, t = divmod(num, 60)
@@ -127,7 +125,72 @@ class Solution:
             if bl[-1-i]:
                 res += 2**i
         return res
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        visited_land = []
+        # 搜索到第一块陆地
+        row, col = len(grid), len(grid[0])
+        rs, cs = -1, -1
+        for i in range(row):
+            flag = 0
+            for j in range(col):
+                if grid[i][j]:
+                    rs, cs = i, j
+                    flag = 1
+                    break
+            if flag:
+                break
+        # 没有搜索到，直接返回0
+        if rs == -1 and cs == -1:
+            return 0
+        stack =[[rs, cs]]
+        visited_land.append([rs, cs])
+        res = 0
+        while len(stack) != 0:
+            point = stack.pop()
+            x, y = point
+            if x == 0 or grid[x-1][y] == 0:
+                # 上方为空，周长加一
+                res += 1
+            elif grid[x-1][y] == 1:
+                # 上方为陆地，压入栈
+                if [x-1, y] not in visited_land:
+                    stack.append([x-1, y])
+                    visited_land.append([x-1, y])
+            if y == 0 or grid[x][y-1] == 0:
+                # 左侧为空，周长加一
+                res += 1
+            elif grid[x][y-1] == 1:
+                # 左侧为陆地，压入栈
+                if [x, y-1] not in visited_land:
+                    stack.append([x, y-1])
+                    visited_land.append([x, y-1])
+            if x == row - 1 or grid[x+1][y] == 0:
+                # 下方为空，周长加一
+                res += 1
+            elif grid[x+1][y] == 1:
+                # 下方为陆地，压入栈
+                if [x+1, y] not in visited_land:
+                    stack.append([x+1, y])
+                    visited_land.append([x+1, y])
+            if y == col - 1 or grid[x][y+1] == 0:
+                # 右侧为空，周长加一
+                res += 1
+            elif grid[x][y+1] == 1:
+                # 右侧为陆地，压入栈
+                if [x, y+1] not in visited_land:
+                    stack.append([x, y+1])
+                    visited_land.append([x, y+1])
+        return res
 s = Solution()
-data = 1
-res = s.readBinaryWatch(data)
-print(res)
+data = [[1,1],[1,1]]
+# res = s.islandPerimeter(data)
+# print(res)
+import numpy as np
+A = np.array([[1, 0, 0, 0],[2, 0, 1, 0], [1, 0, 0, 1], [1, 0, 1, 0]])
+A2 = np.linalg.matrix_power(A, 2)
+A3 = np.linalg.matrix_power(A, 3)
+A4 = np.linalg.matrix_power(A, 4)
+print(1, A, A.sum(), np.diagonal(A).sum())
+print(2, A2, A2.sum(), np.diagonal(A2).sum())
+print(3, A3, A3.sum(), np.diagonal(A3).sum())
+print(4, A4, A4.sum(), np.diagonal(A4).sum())
